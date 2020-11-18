@@ -18,3 +18,15 @@ export function loadListOfFacilities(callback) {
         return null
     }).send(callback);
 }
+
+
+export async function loadReport(callback, date) {
+    let s3Report = {
+        Bucket: "cck-list-zarizeni",
+        Key: "denni-reporty/" + date + ".csv"
+    }
+    let request = S3.getObject(s3Report);
+    request.removeListener('validate', AWS.EventListeners.Core.VALIDATE_CREDENTIALS);
+    request.removeListener('sign', AWS.EventListeners.Core.SIGN);
+    request.send(callback);
+}
