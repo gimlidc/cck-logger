@@ -13,15 +13,11 @@
           <div class="facilityName">
             {{ facility.name }}
           </div>
-          <div class="facilityLocation">
-            {{ facility.location }}
-          </div>
-
         </a>
         <div class="diff"
              v-for="report in changes"
              :key="report.date"
-             v-show="report.websites.map(website => website.url).indexOf(facility.url)">
+             v-show="report.websites.map(website => website.url).indexOf(facility.url) !== -1">
           {{ report.date }}
         </div>
       </div>
