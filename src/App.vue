@@ -1,5 +1,8 @@
 <template>
   <div id="app">
+    <h2>Přehled změn v "aktualitách" sociálního zařízení</h2>
+    <p>Datum v horním indexu obsahuje datum změny, první změna byla 18.11.2020 (první načtení aplikace). Pro aktualizaci si tedy stačí pamatovat, kdy jste aktuality procházeli naposledy a brát pouze data, která jsou vyšší.</p>
+    <p>Změny jsou ukazovány za posledních 7 dní. Cokoli jde upravit (dejte mi vědět #Slack pomahamepraze @Honza Blažek (nebo gimli@matfyz.cz)</p>
     <div class="location" v-for="location in locations" :key="location">
       <div class="locationName"
            @click="toggleLocation(location)">{{ location }}</div>
