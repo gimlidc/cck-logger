@@ -1,17 +1,48 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <div v-for="facility in facilities" :key="facility.url">
+      <a :href="facility.url">
+        <div class="facilityName">
+          {{ facility.name }}
+        </div>
+        <div class="facilityLocation">
+          {{ facility.location }}
+        </div>
+      </a>
+    </div>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import {loadListOfFacilities} from "@/remote";
 
 export default {
   name: 'App',
-  components: {
-    HelloWorld
+  data() {
+    return {
+      facilities: [],
+      changes: {}
+    }
+  },
+  methods: {
+    loadFacilities: async function() {
+      loadListOfFacilities((errors, data) => {
+        console.log(data["Body"].toString())
+        if (data === null || errors) return;
+
+        this.facilities = data["Body"].toString().split("\n").map(line => {
+          let fields = line.split(";");
+          return {
+            name: fields[0],
+            url: fields[1],
+            location: fields[2]
+          }
+        });
+      })
+    }
+  },
+  mounted() {
+    this.loadFacilities()
   }
 }
 </script>
